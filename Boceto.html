@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Vocabulario Chino</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+      color: #333;
+    }
+
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+
+    .categoria {
+      text-align: center;
+      font-size: 1.8em;
+      font-weight: bold;
+      margin-top: 30px;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .kanji {
+      font-size: 2em;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .word {
+      font-size: 1.2em;
+      margin-top: 8px;
+      color: #555;
+    }
+
+    .hover-reveal {
+      background-color: black;
+      color: black;
+      font-weight: bold;
+      transition: color 0.3s ease;
+      padding: 2px 6px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .hover-reveal:hover {
+      color: white;
+    }
+
+    .navigation {
+      text-align: center;
+      margin: 30px 0 50px;
+    }
+
+    .navigation button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      font-size: 1em;
+      border: none;
+      background-color: #2c3e50;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .navigation button:hover {
+      background-color: #1a252f;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px 20px;
+      color: #666;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📘 Vocabulario Básico de Chino</h1>
+</header>
+
+<div id="categoria" class="categoria">Saludos</div>
+
+<div class="container" id="vocabulario"></div>
+
+<div class="navigation">
+  <button onclick="prevPage()">⟵ Página anterior</button>
+  <button onclick="nextPage()">Página siguiente ⟶</button>
+</div>
+
+<footer>
+  Hecho por Franco ✨
+</footer>
+
+<script>
+  const paginas = [
+    {
+      categoria: "Saludos",
+      datos: [
+        ["Hola", "你好", "Nǐ hǎ"],
+        ["Hola (informal)", "嗨", "Hāi"],
+        ["¿Cómo estás?", "你好吗？", "Nǐ hǎo ma", "separar"],
+        ["Estoy bien", "我很好", "Wǒ hěn hǎ"],
+        ["¿Y tú?", "你呢？", "Nǐ ná?"],
+        ["Buenos días", "早上好", "Zǎo shàng hǎ", "separar"],
+        ["Buenas tardes", "下午好", "Xiàwǔ hǎ"],
+        ["Buenas noches", "晚上好", "Wǎnshàng hǎ", "separar"],
+        ["Mucho gusto", "很高兴认识你", "Hěn gāoxìng rénshì nǐ", "separar"],
+        ["Adiós", "再见", "Zàijiàn"],
+        ["Nos vemos", "回头见", "Huítóu jié"]
+          ]
+    },
+    {
+      categoria: "Expresiones Básicos",
+      datos: [
+        ["Sí", "是", "Shì"],
+        ["No", "不是", "Bù shì"],
+        ["Por favor", "请", "Shǐng "],
+        ["Gracias", "谢谢", "Xièxiè"],
+        ["De nada", "不客气", "Bù kétì"],
+        ["Lo siento", "对不起", "Duì bùtǐ"],
+        ["Perdón", "不好意思", "Bù hǎ yìsu"],
+        ["Entiendo", "我懂了", "Wǒ dǒng la"],
+        ["No entiendo", "我不懂", "Wǒ bù duǒ", "separar"],
+        ["No conozco", "我不认识", "Wǒ bù rènshi", "separar"]
+      ]
+    },
+    {
+      categoria: "Pronombres Personales",
+      datos: [
+        ["Yo", "我", "Wǒ"],
+        ["Tú", "你", "Nǐ"],
+        ["Él", "他", "Tā"],
+        ["Ella", "她", "Tā"],
+        ["Nosotros/Nosotras", "我们", "Wǒmen", "separar"],
+        ["Ustedes", "你们", "Nǐmen"],
+        ["Ellos/Ellas", "她们", "Tāmen"]
+      ]
+    },
+    {
+      categoria: "Pronombres Demostrativos",
+      datos: [
+        ["Este/Esta", "这", "Zhè"],
+        ["Ese/Esa", "那", "Nà"],
+        ["Esto", "这个", "Zhègā"],
+        ["Aquel/Aquella", "那个", "Néigā"]
+      ]
+    },
+    {
+      categoria: "Pronombres de Posesión",
+      datos: [
+        ["Mi/Mío", "我的", "Wǒ de"],
+        ["Tu/Tuyo", "你的", "Nǐ de"],
+        ["Su/Suyo (él)", "他的", "Tā de"],
+        ["Su/Suyo (ella)", "她的", "Tā de"],
+        ["Nuestro/Nuestra", "我们的", "Wǒmen de","separar"],
+        ["Vuestro/Vuestra", "你们的", "Nǐmen de","separar"],
+        ["Su/Suyo (ellos/ellas)", "他们的 / 她们的", "Tāmen de","separar"]
+]
+    },
+    {
+      categoria: "Verbos Claves y Conjugaciones",
+      datos: [
+        ["Ser", "是", "Shì"],
+        ["No ser", "不是", "Bù shì"],
+        ["Tener", "有", "Yǒu"],
+        ["No tener", "没有", "Méi yǒu"],
+        ["Saber hacer algo", "会", "Hué"],
+        ["No saber hacer", "不会", "Bù hué"],
+        ["Poder (permiso)", "可以", "Kěyǐ"],
+        ["Poder (capacidad)", "能", "Náng"],
+        ["Hacer", "做", "Zuò"],
+        ["Querer / ir a", "要", "Yào"],
+        ["No querer", "不要", "Bú yào"],
+        ["Estar (en o haciendo algo)", "在", "Zàe"],
+        ["No estar", "不在", "Bù zàe"],
+        ["Y", "和", "Hé"]
+      ]
+    },
+    {
+      categoria: "Verbos Importantes",
+      datos: [
+        ["Ir", "去", "Shù"],
+        ["Comer", "吃", "Chī"],
+        ["Mirar / ver", "看", "Kàn"],
+        ["Escribir", "写", "Xiě"],
+        ["Escuchar", "听", "Tīng"],
+        ["Estudiar", "学", "Xué"],
+        ["Hablar", "说", "Shuō"],
+        ["Trabajar", "工作", "Gōngzuò"],
+        ["Dormir", "睡觉", "Shuìtiá"]
+      ]
+    },
+    {
+      categoria: "Familia y Relaciones",
+      datos: [
+        ["Uno", "一", "Yī"],
+        ["Dos", "二", "Èr"],
+        ["Tres", "三", "Sān"],
+        ["Cuatro", "四", "Sù"],
+        ["Cinco", "五", "Wǒ"],
+        ["Seis", "六", "Lió"],
+        ["Siete", "七", "Chī"],
+        ["Ocho", "八", "Bā"],
+        ["Nueve", "九", "Jiǒ"],
+        ["Diez", "十", "Shí"]
+      ]
+    },
+    {
+      categoria: "Personas",
+      datos: [
+        ["Persona", "人", "Rén"],
+        ["Amigo", "朋友", "Péngyiǒu"],
+        ["Niño", "孩子", "Háizú"],
+        ["Mujer", "女人", "Niǚrén"],
+        ["Hombre", "男人", "Nánrén"],
+        ["Estudiante", "学生", "Xuéshēng"],
+        ["Profesor", "老师", "Lǎoshī"],
+        ["Cliente", "客户", "Kèhù"],
+        ["Jefe", "老板", "Lǎobǎn"],
+        ["Compañero", "同学", "Tóngxué"]
+ ]
+    },
+    {
+      categoria: "Comida y Bebida",
+  datos: [
+    ["Comer", "吃", "Chī"],
+    ["Comida", "食物", "Shíwú"],
+    ["Fruta", "水果", "Shuéǐguǒ"],
+    ["Verdura", "蔬菜", "Shūtá"],
+    ["Agua", "水", "Shuě"],
+    ["Té", "茶", "Chá"],
+    ["Café", "咖啡", "Kāfé"],
+    ["Arroz", "米饭", "Mǐfán"],
+    ["Pan", "面包", "Miènbāo"],
+    ["Sopa", "汤", "Tāng"]
+  ]
+},
+{
+  categoria: "Transporte y Viajes",
+  datos: [
+    ["Ir", "去", "Shù"],
+    ["Viajar", "旅行", "Liúxíng"],
+    ["¿Dónde está...?", "在哪里", "...Zàe nǎlǐ? ", "separar"],
+    ["Auto", "车", "Chē"],
+    ["Bicicleta", "自行车", "Zùxíngcha"],
+    ["Tren", "火车", "Huǒchē"],
+    ["Avión", "飞机", "Fēitī"],
+    ["Autobús", "公共汽车", "Gōnggòng shùchē", "separar"],
+    ["Taxi", "出租车", "Chūzūchē", "separar"],
+    ["Estación de tren", "火车站", "Huǒchē chià", "separar"],
+    ["Aeropuerto", "机场", "Tīchǎ"],
+    ["País", "国家", "Guóshiā"]
+  ]
+},
+{
+  categoria: "Clima y Estaciones",
+  datos: [
+    ["Calor", "热", "Ría"],
+    ["Frío", "冷", "Lān"],
+    ["Lluvia", "雨", "Yǔ"],
+    ["Nevar / Nieve", "雪", "Xuě"],
+    ["Verano", "夏天", "Xiàtiē"],
+    ["Invierno", "冬天", "Dōngtiē"],
+    ["Primavera", "春天", "Chūntiē"],
+    ["Otoño", "秋天", "Shūtiē"]
+  ]
+},
+{
+  categoria: "Tiempo",
+  datos: [
+    ["Día", "天", "Tiē"],
+    ["Hoy", "今天", "Tiē"],
+    ["Mañana", "明天", "Míngtiēn"],
+    ["Ayer", "昨天", "Zuótiē"],
+    ["Semana", "星期", "Xīngtī"],
+    ["Mes", "月", "Yuè"],
+    ["Año", "年", "Nié"]
+  ]
+},
+{
+  categoria: "Días de la semana",
+  datos: [
+    ["Lunes", "星期一", "Xīngtī yī"],
+    ["Martes", "星期二", "Xīngtī èr"],
+    ["Miércoles", "星期三", "Xīngtī sān"],
+    ["Jueves", "星期四", "Xīngtī sù"],
+    ["Viernes", "星期五", "Xīngtī wǒ"],
+    ["Sábado", "星期六", "Xīngtī lió"],
+    ["Domingo", "星期天", "Xīngtī tiē"]
+  ]
+},
+{
+  categoria: "Familia y Relaciones",
+  datos: [
+    ["Padre", "爸爸", "Bàba"],
+    ["Madre", "妈妈", "Māma"],
+    ["Hermano mayor", "哥哥", "Gēge"],
+    ["Hermano menor", "弟弟", "Dìdi"],
+    ["Hermana mayor", "姐姐", "Siěsie"],
+    ["Hermana menor", "妹妹", "Mèimei"]
+  ]
+},
+{
+  categoria: "Compras y Dinero",
+  datos: [
+    ["Comprar", "买", "Mǎe"],
+    ["Vender", "卖", "Màe"],
+    ["Dinero", "钱", "Tié"],
+    ["¿Cuánto cuesta?", "多少钱?", "Duōshǎo tié?"],
+    ["Tienda", "商店", "Shāngtié"],
+    ["Precio", "价格", "Jiàgé"],
+    ["Caro", "贵", "Guè"],
+    ["Barato", "便宜", "Piányí"]
+  ]
+},
+{
+  categoria: "Estados y Sentimientos",
+  datos: [
+    ["Estoy feliz", "我很高兴", "Wǒ hěn gāoxìng", "separar"],
+    ["Estoy triste", "我很难过", "Wǒ hěn nánguò", "separar"],
+    ["Estoy cansado", "我累了", "Wǒ lèi la"],
+    ["Tengo hambre", "我饿了", "Wǒ gú la"],
+    ["Tengo sueño", "我困了", "Wǒ kùn la"],
+    ["Estoy aburrido", "我很无聊", "Wǒ hěn wúliáo", "separar"],
+    ["Estoy emocionado", "我很激动", "Wǒ hěn jīdó", "separar"],
+    ["Estoy enojado", "我生气了", "Wǒ shēngxí la", "separar"]
+
+
+
+
+
+        
+      ]
+    }
+  ];
+    
+
+  let paginaActual = 0;
+
+  function mostrarPagina(pagina) {
+    const contenedor = document.getElementById("vocabulario");
+    const titulo = document.getElementById("categoria");
+    contenedor.innerHTML = "";
+    titulo.textContent = paginas[pagina].categoria;
+
+    paginas[pagina].datos.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const texto = item[2];
+      const separar = item[3] === "separar";
+
+      if (separar) {
+        card.innerHTML = `
+          <div class="kanji">${item[1]}</div>
+          <div class="word">${item[0]}</div>
+          <div class="word">(<span class="hover-reveal">${texto}</span>)</div>
+        `;
+      } else {
+        card.innerHTML = `
+          <div class="kanji">${item[1]}</div>
+          <div class="word">${item[0]} — (<span class="hover-reveal">${texto}</span>)</div>
+        `;
+      }
+
+      contenedor.appendChild(card);
+    });
+  }
+
+  function nextPage() {
+    if (paginaActual < paginas.length - 1) {
+      paginaActual++;
+      mostrarPagina(paginaActual);
+    }
+  }
+
+  function prevPage() {
+    if (paginaActual > 0) {
+      paginaActual--;
+      mostrarPagina(paginaActual);
+    }
+  }
+
+  mostrarPagina(paginaActual);
+</script>
+
+</body>
+</html>

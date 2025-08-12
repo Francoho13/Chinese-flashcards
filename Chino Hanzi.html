@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Vocabulario Chino</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+      color: #333;
+    }
+
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+
+    .categoria {
+      text-align: center;
+      font-size: 1.8em;
+      font-weight: bold;
+      margin-top: 30px;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .top-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .kanji {
+      font-size: 2em;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .audio-button {
+      background-color: transparent;
+      border: none;
+      font-size: 1.3em;
+      cursor: pointer;
+      color: #2c3e50;
+      transition: color 0.2s ease;
+    }
+
+    .audio-button:hover {
+      color: #000;
+    }
+
+    .word {
+      font-size: 1.2em;
+      margin-top: 8px;
+      color: #555;
+    }
+
+    .hover-reveal {
+      background-color: black;
+      color: black;
+      font-weight: bold;
+      transition: color 0.3s ease;
+      padding: 2px 6px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .hover-reveal:hover {
+      color: white;
+    }
+
+    .navigation {
+      text-align: center;
+      margin: 30px 0 50px;
+    }
+
+    .navigation button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      font-size: 1em;
+      border: none;
+      background-color: #2c3e50;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .navigation button:hover {
+      background-color: #1a252f;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px 20px;
+      color: #666;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📘 Vocabulario Básico de Chino</h1>
+</header>
+
+<div id="categoria" class="categoria">Saludos</div>
+<div class="container" id="vocabulario"></div>
+
+<div class="navigation">
+  <button onclick="prevPage()">⟵ Página anterior</button>
+  <button onclick="nextPage()">Página siguiente ⟶</button>
+</div>
+
+<footer>
+  Hecho por Franco ✨
+</footer>
+
+<script>
+  const paginas = [
+    {
+      categoria: "Saludos",
+      datos: [
+        ["Hola", "你好", "Nǐ hǎ", "Audios/1. Saludos/1. Hola - Ni ha.mp3"],
+        ["Hola (informal)", "嗨", "Hāi", "Audios/1. Saludos/2. Hola (informal) - Hāi.mp3"],
+        ["¿Cómo estás?", "你好吗？", "Nǐ hǎo ma", "Audios/1. Saludos/3. ¿Cómo estás - Nǐ hǎo ma.mp3", "separar"],
+        ["Estoy bien", "我很好", "Wǒ hěn hǎ", "Audios/1. Saludos/4. Estoy bien - Wǒ hěn hǎ.mp3"],
+        ["¿Y tú?", "你呢？", "Nǐ ná?", "Audios/1. Saludos/5. ¿Y tú - Nǐ ná.mp3"],
+        ["Buenos días", "早上好", "Zǎo shàng hǎ", "Audios/1. Saludos/6. Buenos días - Zǎo shang hǎ.mp3", "separar"],
+        ["Buenas tardes", "下午好", "Xiàwǔ hǎ", "Audios/1. Saludos/7. Buenas tardes - Xiàwǔ hǎ.mp3"],
+        ["Buenas noches", "晚上好", "Wǎnshàng hǎ", "Audios/1. Saludos/8. Buenas noches - Wǎnshàng hǎ.mp3", "separar"],
+        ["Mucho gusto", "很高兴认识你", "Hěn gāoxìng rénshì nǐ", "Audios/1. Saludos/9. Mucho gusto - Hěn gāoxìng rénshì nǐ.mp3", "separar"],
+        ["Adiós", "再见", "Zàijiàn", "Audios/1. Saludos/10. Adiós - Zàijiàn.mp3"],
+        ["Nos vemos", "回头见", "Huítóu jié", "Audios/1. Saludos/11. Hasta luego - Huítóu jié.mp3"]
+      ]
+    },
+    {
+      categoria: "Expresiones Básicas",
+      datos: [
+        ["Sí", "是", "Shì", "Audios/2. Expresiones Básicas/1. Sí - Shì.mp3"],
+        ["No", "不是", "Bù shì", "Audios/2. Expresiones Básicas/2. No - Bù shì.mp3"],
+        ["Por favor", "请", "Shǐng", "Audios/2. Expresiones Básicas/3. Por favor - Shǐng.mp3"],
+        ["Gracias", "谢谢", "Xièxiè", "Audios/2. Expresiones Básicas/4. Gracias - Xièxiè.mp3"],
+        ["De nada", "不客气", "Bù kétì", "Audios/2. Expresiones Básicas/5. De nada - Bù kétì.mp3"],
+        ["Lo siento", "对不起", "Duì bùtǐ", "Audios/2. Expresiones Básicas/6. Lo siento - Duì bùtǐ.mp3"],
+        ["Perdón", "不好意思", "Bù hǎo yìsu", "Audios/2. Expresiones Básicas/7. Perdón - Bù hǎ yìsu.mp3"],
+        ["Entiendo", "我懂了", "Wǒ dǒng la", "Audios/2. Expresiones Básicas/8. Entiendo - Wǒ dǒng la.mp3"],
+        ["No entiendo", "我不懂", "Wǒ bú duǒ", "Audios/2. Expresiones Básicas/9. No entiendo - Wǒ bù duǒ.mp3", "separar"],
+        ["No conozco", "我不认识", "Wǒ bù rènshi", "Audios/2. Expresiones Básicas/10. No conozco - Wǒ bù rènshi.mp3", "separar"]
+         ]
+    },
+    {
+      categoria: "Pronombres Personales",
+      datos: [
+        ["Yo", "我", "Wǒ", "Audios/3. Pronombres personales/1. Yo - Wǒ.mp3"],
+        ["Tú", "你", "Nǐ", "Audios/3. Pronombres personales/2. Tú - Nǐ.mp3"],
+        ["Él", "他", "Tā", "Audios/3. Pronombres personales/3. Él - Tā.mp3"],
+        ["Ella", "她", "Tā", "Audios/3. Pronombres personales/4. Ella - Tā.mp3"],
+        ["Nosotros/Nosotras", "我们", "Wǒmen", "Audios/3. Pronombres personales/5. Nosotros-Nosotras - Wo men.mp3", "separar"],
+        ["Ustedes", "你们", "Nǐmen" , "Audios/3. Pronombres personales/6. Ustedes - Nǐ men.mp3"],
+        ["Ellos/Ellas", "她们", "Tāmen" , "Audios/3. Pronombres personales/7. Ellos-Ellas - Tāmen.mp3"]
+      ]
+    },
+    {
+      categoria: "Pronombres Demostrativos",
+      datos: [
+        ["Este/Esta", "这", "Zhè", "Audios/3. Pronombres personales/8. Este-Esta - Zhè.mp3"],
+        ["Ese/Esa", "那", "Nà", "Audios/3. Pronombres personales/9. Ese-Esa - Nà.mp3"],
+        ["Esto", "这个", "Zhègā", "Audios/3. Pronombres personales/10. Esto - Zhègā.mp3"],
+        ["Aquel/Aquella", "那个", "Néigā", "Audios/3. Pronombres personales/11. Aquel-Aquella - Néigā.mp3"]
+      ]
+    },
+    {
+      categoria: "Pronombres de Posesión",
+      datos: [
+        ["Mi/Mío", "我的", "Wǒ da", "Audios/3. Pronombres personales/12. Mi-Mío - Wǒ da.mp3"],
+        ["Tu/Tuyo", "你的", "Nǐ da", "Audios/3. Pronombres personales/13. Tu-Tuyo - Nǐ da.mp3"],
+        ["Su/Suyo (él)", "他的", "Tā da", "Audios/3. Pronombres personales/14. Su-Suyo (él-ella) - Tā da.mp3"],
+        ["Nuestro/Nuestra", "我们的", "Wǒmen da", "Audios/3. Pronombres personales/15. Nuestro-Nuestra - Wǒmen da.mp3", "separar"],
+        ["Vuestro/Vuestra", "你们的", "Nǐmen da", "Audios/3. Pronombres personales/16. Vuestro-Vuestra - Nǐmen da.mp3", "separar"],
+        ["Su/Suyo (ellos/ellas)", "他们的 / 她们的", "Tāmen da", "Audios/3. Pronombres personales/17. Su-Suyo (ellos-ellas) - Tāmen da.mp3", "separar"]
+]
+    },
+    {
+      categoria: "Verbos Claves y Conjugaciones",
+      datos: [
+        ["Ser", "是", "Shì", "Audios/4. Verbos claves y conjugaciones/1. Ser - Shì.mp3"],
+        ["No ser", "不是", "Bù shì", "Audios/4. Verbos claves y conjugaciones/2. No ser - Bù shì.mp3"],
+        ["Tener", "有", "Yǒu", "Audios/4. Verbos claves y conjugaciones/3. Tener - Yǒu.mp3"],
+        ["No tener", "没有", "Méi yǒu", "Audios/4. Verbos claves y conjugaciones/4. No tener - Méi yǒu.mp3"],
+        ["Saber hacer algo", "会", "Hué", "Audios/4. Verbos claves y conjugaciones/5. Saber hacer algo - Hué.mp3"],
+        ["No saber hacer", "不会", "Bù hué", "Audios/4. Verbos claves y conjugaciones/6. No saber hacer - Bù hué.mp3"],
+        ["Poder (permiso)", "可以", "Kěyǐ", "Audios/4. Verbos claves y conjugaciones/7. Poder (permiso) - Kěyǐ.mp3"],
+        ["Poder (capacidad)", "能", "Náng", "Audios/4. Verbos claves y conjugaciones/8. Poder (capacidad) - Náng.mp3"],
+        ["Hacer", "做", "Zuò", "Audios/4. Verbos claves y conjugaciones/9. Hacer - Zuò.mp3"],
+        ["Querer / ir a", "要", "Yào", "Audios/4. Verbos claves y conjugaciones/10. Querer - ir a - Yào.mp3"],
+        ["No querer", "不要", "Bú yào", "Audios/4. Verbos claves y conjugaciones/11. No querer - Bú yào.mp3"],
+        ["Estar (en o haciendo algo)", "在", "Zàe", "Audios/4. Verbos claves y conjugaciones/12. Estar (en o haciendo algo) - Zàe.mp3"],
+        ["No estar", "不在", "Bù zàe", "Audios/4. Verbos claves y conjugaciones/13. No estar - Bù zàe.mp3"],
+        ["Y", "和", "Hé", "Audios/4. Verbos claves y conjugaciones/14. Y - Hé.mp3"]
+     ]
+    },
+    {
+      categoria: "Verbos Importantes",
+      datos: [
+        ["Ir", "去", "Shù", "Audios/5. Verbos importantes/1. Ir - Shù.mp3"],
+        ["Comer", "吃", "Chī", "Audios/5. Verbos importantes/2. Comer - Chī.mp3"],
+        ["Mirar / ver", "看", "Kàn", "Audios/5. Verbos importantes/3. Mirar- ver - Kàn.mp3"],
+        ["Escribir", "写", "Xiě", "Audios/5. Verbos importantes/4. Escribir - Xiě.mp3"],
+        ["Escuchar", "听", "Tīng", "Audios/5. Verbos importantes/5. Escuchar - Tīng.mp3"],
+        ["Estudiar", "学", "Xué", "Audios/5. Verbos importantes/6. Estudiar - Xué.mp3"],
+        ["Hablar", "说", "Shuō", "Audios/5. Verbos importantes/7. Hablar - Shuō.mp3"],
+        ["Trabajar", "工作", "Gōngzuò", "Audios/5. Verbos importantes/8. Trabajar - Góngzuò.mp3"],
+        ["Dormir", "睡觉", "Shuìtiá", "Audios/5. Verbos importantes/9. Dormir - Shuìtiá.mp3"]
+      ]
+    },
+    {
+      categoria: "Números",
+      datos: [
+        ["Uno", "一", "Yī", "Audios/6, Números/1. Uno - Yī.mp3"],
+        ["Dos", "二", "Èr", "Audios/6, Números/2. Dos - Èr.mp3"],
+        ["Tres", "三", "Sān", "Audios/6, Números/3. Tres - Sān.mp3"],
+        ["Cuatro", "四", "Sù", "Audios/6, Números/4. Cuatro - Sù.mp3"],
+        ["Cinco", "五", "Wǒ", "Audios/6, Números/5. Cinco - Wǒ.mp3"],
+        ["Seis", "六", "Lió", "Audios/6, Números/6. Seis - Lió.mp3"],
+        ["Siete", "七", "Chī", "Audios/6, Números/7. Siete - Chī.mp3"],
+        ["Ocho", "八", "Bā", "Audios/6, Números/8. Ocho - Bā.mp3"],
+        ["Nueve", "九", "Jiǒ", "Audios/6, Números/9. Nueve - Jiǒ.mp3"],
+        ["Diez", "十", "Shí", "Audios/6, Números/10. Diez - Shí.mp3"]
+      ]
+    },
+    {
+      categoria: "Personas",
+      datos: [
+        ["Persona", "人", "Rén", "Audios/7. Personas/1. Persona - Rén.mp3"],
+        ["Amigo", "朋友", "Péngyiǒu", "Audios/7. Personas/2. Amigo - Péngyiǒu.mp3"],
+        ["Niño", "孩子", "Háizú", "Audios/7. Personas/3. Niño - Háizú.mp3"],
+        ["Mujer", "女人", "Niǚrén", "Audios/7. Personas/4. Mujer - Niǚrén.mp3"],
+        ["Hombre", "男人", "Nánrén", "Audios/7. Personas/5. Hombre - Nánrén.mp3"],
+        ["Estudiante", "学生", "Xuéshēng", "Audios/7. Personas/6. Estudiante - Xuéshéng.mp3"],
+        ["Profesor", "老师", "Lǎoshī", "Audios/7. Personas/7. Profesor - Lǎoshí.mp3"],
+        ["Cliente", "客户", "Kèhù", "Audios/7. Personas/8. Cliente - Kèhú.mp3"],
+        ["Jefe", "老板", "Lǎobǎn", "Audios/7. Personas/9. Jefe - Lǎobǎn.mp3"],
+        ["Compañero", "同学", "Tóngxué", "Audios/7. Personas/10. Compañero - Tóngxué.mp3"]
+ ]
+    },
+    {
+      categoria: "Comida y Bebida",
+  datos: [
+    ["Comer", "吃", "Chī", "Audios/8. Comida y bebida/1. Comer - Chī.mp3"],
+    ["Comida", "食物", "Shíwú", "Audios/8. Comida y bebida/2. Comida - Shíwú.mp3"],
+    ["Fruta", "水果", "Shuéǐguǒ", "Audios/8. Comida y bebida/3. Fruta - Shuéǐguǒ.mp3"],
+    ["Verdura", "蔬菜", "Shūtá", "Audios/8. Comida y bebida/4. Verdura - Shūtá.mp3"],
+    ["Agua", "水", "Shuě", "Audios/8. Comida y bebida/5. Agua - Shuě.mp3"],
+    ["Té", "茶", "Chá", "Audios/8. Comida y bebida/6. Té - Chá.mp3"],
+    ["Café", "咖啡", "Kāfé", "Audios/8. Comida y bebida/7. Café - Kāfé.mp3"],
+    ["Arroz", "米饭", "Mǐfán", "Audios/8. Comida y bebida/8. Arroz - Mǐfán.mp3"],
+    ["Pan", "面包", "Miènbāo", "Audios/8. Comida y bebida/9. Pan - Miènbāo.mp3"],
+    ["Sopa", "汤", "Tāng", "Audios/8. Comida y bebida/10. Sopa - Tāng.mp3"]
+  ]
+},
+{
+  categoria: "Transporte y Viajes",
+  datos: [
+    ["Ir", "去", "Shù", "Audios/9. Transporte y viajes/1. Ir - Shù.mp3"],
+    ["Viajar", "旅行", "Liúxíng", "Audios/9. Transporte y viajes/2. Viajar - liúxíng.mp3"],
+    ["¿Dónde está?", "在哪里", "Zàe nǎlǐ? ", "Audios/9. Transporte y viajes/3. Dónde está. - zàe nǎlǐ.mp3", "separar"],
+    ["Auto", "车", "Cha", "Audios/9. Transporte y viajes/4. Auto - Chē.mp3"],
+    ["Bicicleta", "自行车", "Zùxíngcha", "Audios/9. Transporte y viajes/5. Bicicleta - Zùxíngcha.mp3"],
+    ["Tren", "火车", "Huǒcha", "Audios/9. Transporte y viajes/6. Tren - Huǒchē.mp3"],
+    ["Avión", "飞机", "Fēitī", "Audios/9. Transporte y viajes/7. Avión - Fēitī.mp3"],
+    ["Autobús", "公共汽车", "Gōnggòng shicha", "Audios/9. Transporte y viajes/8. Autobús - Gōnggòng shùchē.mp3", "separar"],
+    ["Taxi", "出租车", "Chūzūcha", "Audios/9. Transporte y viajes/9. Taxi - Chūzūchē.mp3", "separar"],
+    ["Estación de tren", "火车站", "Huǒchē chià", "Audios/9. Transporte y viajes/10. Estación de tren - Huǒchē chià.mp3", "separar"],
+    ["Aeropuerto", "机场", "Tīchǎ", "Audios/9. Transporte y viajes/11. Aeropuerto - Tīchǎ.mp3"], 
+    ["País", "国家", "Guójiā", "Audios/9. Transporte y viajes/12. País - Guóshiā.mp3"]
+  ]
+},
+{
+  categoria: "Clima y Estaciones",
+  datos: [
+    ["Calor", "热", "Ría", "Audios/10. Clima y estaciones/1. Calor - Ría.mp3"],
+    ["Frío", "冷", "Lān", "Audios/10. Clima y estaciones/2. Frío - Lān.mp3"],
+    ["Lluvia", "雨", "Yǔ", "Audios/10. Clima y estaciones/3. Lluvia - Yǔ.mp3"],
+    ["Nevar / Nieve", "雪", "Xuě", "Audios/10. Clima y estaciones/4. Nevar- Nieve - Xuě.mp3"],
+    ["Verano", "夏天", "Xiàtiē", "Audios/10. Clima y estaciones/5. Verano - Xiàtiē.mp3"],
+    ["Invierno", "冬天", "Dōngtiē", "Audios/10. Clima y estaciones/6. Invierno - Dōngtiē.mp3"],
+    ["Primavera", "春天", "Chūntiē", "Audios/10. Clima y estaciones/7. Primavera - Chūntiē.mp3"],
+    ["Otoño", "秋天", "Shūtiē", "Audios/10. Clima y estaciones/8. Otoño - Shūtiē.mp3"]
+  ]
+},
+{
+  categoria: "Tiempo",
+  datos: [
+    ["Día", "天", "Tiē", "Audios/11. Tiempo/1. Día - Tiē.mp3"],
+    ["Hoy", "今天", "Tiē", "Audios/11. Tiempo/2. Hoy - Jīntiē.mp3"],
+    ["Mañana", "明天", "Míngtiēn", "Audios/11. Tiempo/3. Mañana - Míngtiē.mp3"],
+    ["Ayer", "昨天", "Zuótiē", "Audios/11. Tiempo/4. Ayer - Zuótiē.mp3"],
+    ["Semana", "星期", "Xīngtī", "Audios/11. Tiempo/5. Semana - Xīngtī.mp3"],
+    ["Mes", "月", "Yuè", "Audios/11. Tiempo/6. Mes - Yuè.mp3"],
+    ["Año", "年", "Nié", "Audios/11. Tiempo/7. Año - Nié.mp3"]
+  ]
+},
+{
+  categoria: "Días de la semana",
+  datos: [
+    ["Lunes", "星期一", "Xīngtī yī", "Audios/12. Días de semana/1. Lunes - Xīngtī yī.mp3"],
+    ["Martes", "星期二", "Xīngtī èr", "Audios/12. Días de semana/2. Martes - Xīngtī èr.mp3"],
+    ["Miércoles", "星期三", "Xīngtī sān", "Audios/12. Días de semana/3. Miércoles - Xīngtī sān.mp3"],
+    ["Jueves", "星期四", "Xīngtī sù", "Audios/12. Días de semana/4. Jueves - Xīngtī sù.mp3"],
+    ["Viernes", "星期五", "Xīngtī wǒ", "Audios/12. Días de semana/5. Viernes - Xīngtī wǒ.mp3"],
+    ["Sábado", "星期六", "Xīngtī lió", "Audios/12. Días de semana/6. Sábado - Xīngtī lió.mp3"],
+    ["Domingo", "星期天", "Xīngtī tiē", "Audios/12. Días de semana/7. Domingo - Xīngtī tiē.mp3"]
+  ]
+},
+{
+  categoria: "Familia y Relaciones",
+  datos: [
+    ["Padre", "爸爸", "Bàba", "Audios/13. Familia y relaciones/1. Padre - Bàba.mp3"],
+    ["Madre", "妈妈", "Māma", "Audios/13. Familia y relaciones/2. Madre - Māma.mp3"],
+    ["Hermano mayor", "哥哥", "Gēge", "Audios/13. Familia y relaciones/3. Hermano mayor - Gēge.mp3"],
+    ["Hermano menor", "弟弟", "Dìdi", "Audios/13. Familia y relaciones/4. Hermano menor - Dìdi.mp3"],
+    ["Hermana mayor", "姐姐", "Siěsie", "Audios/13. Familia y relaciones/5. Hermana mayor - Siěsie.mp3"],
+    ["Hermana menor", "妹妹", "Mèimei", "Audios/13. Familia y relaciones/6. Hermana menor - Mèimei.mp3"]
+  ]
+},
+{
+  categoria: "Compras y Dinero",
+  datos: [
+    ["Comprar", "买", "Mǎe", "Audios/14. Compras y dinero/1. Comprar - Mǎe.mp3"],
+    ["Vender", "卖", "Màe", "Audios/14. Compras y dinero/2. Vender - Màe.mp3"],
+    ["Dinero", "钱", "Tié", "Audios/14. Compras y dinero/3. Dinero - Tié.mp3"],
+    ["¿Cuánto cuesta?", "多少钱?", "Duōshǎo tié?", "Audios/14. Compras y dinero/5. Tienda - Shāngtié.mp3"],
+    ["Tienda", "商店", "Shāngtié", "Audios/14. Compras y dinero/5. Tienda - Shāngtié.mp3"],
+    ["Precio", "价格", "Jiàgé", "Audios/14. Compras y dinero/6. Precio - Jiàgé.mp3"],
+    ["Caro", "贵", "Guè", "Audios/14. Compras y dinero/7. Caro - Guè.mp3"],
+    ["Barato", "便宜", "Piányí", "Audios/14. Compras y dinero/8. Barato - Piányí.mp3"]
+  ]
+},
+{
+  categoria: "Estados y Sentimientos",
+  datos: [
+    ["Estoy feliz", "我很高兴", "Wǒ hěn gāoxìng", "Audios/15. Estados y sentimientos/1. Estoy feliz - Wǒ hěn gāoxìng.mp3" ,"separar"],
+    ["Estoy triste", "我很难过", "Wǒ hěn nánguò", "Audios/15. Estados y sentimientos/2. Estoy triste - Wǒ hěn nánguò.mp3","separar"],
+    ["Estoy cansado", "我累了", "Wǒ lèi la", "Audios/15. Estados y sentimientos/3. Estoy cansado - Wǒ lèi la.mp3"],
+    ["Tengo hambre", "我饿了", "Wǒ gú la", "Audios/15. Estados y sentimientos/4. Tengo hambre - Wǒ gú la.mp3"],
+    ["Tengo sueño", "我困了", "Wǒ kùn la", "Audios/15. Estados y sentimientos/5. Tengo sueño - Wǒ kùn la.mp3"],
+    ["Estoy aburrido", "我很无聊", "Wǒ hěn wúliáo", "Audios/15. Estados y sentimientos/6. Estoy aburrido - Wǒ hěn wúliáo.mp3", "separar"],
+    ["Estoy emocionado", "我很激动", "Wǒ hěn jīdó", "Audios/15. Estados y sentimientos/7. Estoy emocionado - Wǒ hěn jīdó.mp3", "separar"],
+    ["Estoy enojado", "我生气了", "Wǒ shēngxí la", "Audios/15. Estados y sentimientos/8. Estoy enojado - Wǒ shēngxí la.mp3", "separar"]   
+
+
+
+
+      ]
+    }
+  ];
+
+  let paginaActual = 0;
+
+  function mostrarPagina(pagina) {
+    const contenedor = document.getElementById("vocabulario");
+    const titulo = document.getElementById("categoria");
+    contenedor.innerHTML = "";
+    titulo.textContent = paginas[pagina].categoria;
+
+    paginas[pagina].datos.forEach(item => {
+      const español = item[0];
+      const hanzi = item[1];
+      const pinyin = item[2];
+      const audio = item[3]?.endsWith(".mp3") ? item[3] : null;
+      const separar = item.includes("separar");
+
+      const card = document.createElement("div");
+      card.className = "card";
+
+      card.innerHTML = `
+        <div class="top-line">
+          <div class="kanji">${hanzi}</div>
+          ${audio ? `<button class="audio-button" onclick="reproducirAudio('${audio}')">🔊</button>` : ""}
+        </div>
+        ${separar 
+          ? `<div class="word">${español}</div><div class="word">(<span class="hover-reveal">${pinyin}</span>)</div>`
+          : `<div class="word">${español} — (<span class="hover-reveal">${pinyin}</span>)</div>`
+        }
+      `;
+
+      contenedor.appendChild(card);
+    });
+  }
+
+  function reproducirAudio(src) {
+    const audio = new Audio(src);
+    audio.play();
+  }
+
+  function nextPage() {
+    if (paginaActual < paginas.length - 1) {
+      paginaActual++;
+      mostrarPagina(paginaActual);
+    }
+  }
+
+  function prevPage() {
+    if (paginaActual > 0) {
+      paginaActual--;
+      mostrarPagina(paginaActual);
+    }
+  }
+
+  mostrarPagina(paginaActual);
+</script>
+
+</body>
+</html>
